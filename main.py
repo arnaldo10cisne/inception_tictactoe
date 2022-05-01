@@ -10,7 +10,8 @@ class OuterBoard:
         my_outer_board = []
 
         for coordinate in VALID_COORDINATES:
-            my_outer_board.append(create_board(InnerBoard(coordinate)))
+            inner_board = InnerBoard(coordinate)
+            my_outer_board.append(inner_board)
 
         self.board = my_outer_board
         self.current_o_coordinates = []
@@ -18,11 +19,10 @@ class OuterBoard:
 
     def get_order_of_symbols(self):
         symbols = ''
-        for board in self.board:
-            for tile in board:
-                tile.return_symbol()
-        return None
-        # return "XOXXXOXOXOOOXOXOXOXOXOXOXOXOXOOXOXOXOXOXOXOXOOXOXOXOXOXOOXOXOXOXOXOOXOXOXOXOOXOXOXOXOXO"
+        for inner_board in self.board:
+            for coordinate in VALID_COORDINATES:
+                symbols += inner_board.return_symbol(coordinate)
+        return symbols
 
 
 class InnerBoard:
@@ -40,12 +40,12 @@ class InnerBoard:
 
     def fill_board(self):
         for coordinate in self.current_o_coordinates:
-            self.board[0][int(coordinate[0])-1][int(coordinate[1])-1] = 'O'
+            self.board[int(coordinate[0])-1][int(coordinate[1])-1] = 'O'
         for coordinate in self.current_x_coordinates:
-            self.board[0][int(coordinate[0])-1][int(coordinate[1])-1] = 'X'
+            self.board[int(coordinate[0])-1][int(coordinate[1])-1] = 'X'
 
     def return_symbol(self, coordinate):
-        return self.board[0][int(coordinate[0])-1][int(coordinate[1])-1]
+        return self.board[int(coordinate[0])-1][int(coordinate[1])-1]
 
     def clear_board(self):
         self.current_o_coordinates = []
