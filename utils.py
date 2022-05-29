@@ -151,17 +151,15 @@ def coordinate_to_number(coordinate):
 
 
 def look_for_possible_victory(list_of_plays):
+    """
+        returns winning combination if found
+        returns None if no victory is found
+    """
     for combination in VICTORY_COMBINATIONS:
         for victory_position in combination:
-            if list_of_plays.__contains__(victory_position):
-
+            if victory_position in list_of_plays:
                 if combination.index(victory_position) == 2:
-                    # Victory achieved
-                    pass
-                else:
-                    # Check next victory_position
-                    continue
-
+                    return combination
             else:
-                # combination not valid
                 break
+    return None
