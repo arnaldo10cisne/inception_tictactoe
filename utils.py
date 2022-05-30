@@ -120,9 +120,9 @@ def l(n):
 def display_guide_board():
     print("""    Follow this guide
 
-         1||2||3
+         7||8||9
          4||5||6
-         7||8||9""")
+         1||2||3""")
 
 
 def display_current_board(current_outer_board):
@@ -177,7 +177,7 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
     if inner_board is None:
         while True:
             l(1)
-            inner_board = int(input('Select an inner board (1-9): '))
+            inner_board = refactor_number(int(input('Select an inner board (1-9): ')))
             if board_is_won(inner_board, list_of_players):
                 print('WARNING: This board is not available, please choose another')
             else:
@@ -187,7 +187,7 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
 
     while True:
         l(1)
-        coordinate = int(input('Select a tile number for your play: '))
+        coordinate = refactor_number(int(input('Select a tile number for your play (1-9): ')))
         if coordinate_is_free(coordinate, outer_board.get_inner_board(inner_board-1)):
             break
         else:
@@ -267,6 +267,14 @@ def number_to_coordinates(number):
     if number is None:
         return None
     return VALID_COORDINATES[number-1]
+
+
+def refactor_number(n):
+    if n == 1 or n == 2 or n == 3:
+        return n + 6
+    if n == 7 or n == 8 or n == 9:
+        return n - 6
+    return n
 
 
 def look_for_possible_victory(list_of_plays):
