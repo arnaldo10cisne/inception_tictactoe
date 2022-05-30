@@ -85,18 +85,8 @@ class InnerBoard:
         self.current_x_coordinates.append(coordinate)
         self.board[int(coordinate[0])-1][int(coordinate[1])-1] = 'X'
 
-    # def fill_board(self):
-    #     for coordinate in self.current_o_coordinates:
-    #         self.board[int(coordinate[0])-1][int(coordinate[1])-1] = 'O'
-    #     for coordinate in self.current_x_coordinates:
-    #         self.board[int(coordinate[0])-1][int(coordinate[1])-1] = 'X'
-
     def return_symbol(self, coordinate):
         return self.board[int(coordinate[0])-1][int(coordinate[1])-1]
-
-    def clear_board(self):
-        self.current_o_coordinates = []
-        self.current_x_coordinates = []
 
 
 # DISPLAY METHODS
