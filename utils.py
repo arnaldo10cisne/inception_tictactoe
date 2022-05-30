@@ -118,11 +118,11 @@ def l(n):
 
 
 def display_guide_board():
-    print("""Follow this guide:
+    print("""    Follow this guide
 
-1||2||3
-4||5||6
-7||8||9""")
+         1||2||3
+         4||5||6
+         7||8||9""")
 
 
 def display_current_board(current_outer_board):
@@ -166,20 +166,34 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
         inner_board = None
 
     current_player = list_of_players[player_index % 2]
+
     print(f"It's {current_player.get_name()}'s turn ({current_player.get_symbol()})")
     l(1)
     display_guide_board()
     l(1)
     display_current_board(outer_board)
     l(1)
+
     if inner_board is None:
-        inner_board = int(input('Select an inner board (1-9): '))
-        # TO_DO: Check that player cannot choose a board that has been won already
+        while True:
+            l(1)
+            inner_board = int(input('Select an inner board (1-9): '))
+            if board_is_won(inner_board, list_of_players):
+                print('WARNING: This board is not available, please choose another')
+            else:
+                break
     else:
         print(f'You will play on board {inner_board}')
-    coordinate = int(input('Select a number for your play: '))
+
+    while True:
+        l(1)
+        coordinate = int(input('Select a tile number for your play: '))
+        if coordinate_is_free(coordinate, outer_board.get_inner_board(inner_board-1)):
+            break
+        else:
+            print('WARNING: This tile is not available, please choose another')
+
     coordinate = number_to_coordinates(coordinate)
-    # TO_DO: Chack that player cannot overwrite another symbol
 
     if current_player.get_symbol() == 'X':
         outer_board.get_inner_board(inner_board-1).add_x_coordinate(coordinate)
@@ -215,6 +229,32 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
             player_index+1,
             coordinate_to_number(coordinate)
         )
+
+
+def coordinate_is_free(coordinate, board):
+
+    coordinate = number_to_coordinates(coordinate)
+
+    if (
+        coordinate in board.current_o_coordinates or
+        coordinate in board.current_x_coordinates
+    ):
+        return False
+
+    return True
+
+
+def board_is_won(coordinate, list_of_players):
+
+    coordinate = number_to_coordinates(coordinate)
+
+    if (
+        coordinate in list_of_players[0].current_won_boards or
+        coordinate in list_of_players[1].current_won_boards
+    ):
+        return True
+
+    return False
 
 
 def coordinate_to_number(coordinate):
