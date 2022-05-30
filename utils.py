@@ -126,31 +126,49 @@ def display_guide_board():
          1||2||3""")
 
 
-def display_current_board(current_outer_board, i_b = None):
+def display_current_board(current_outer_board, list_of_players, i_b=None):
 
     y = Fore.YELLOW
-    b = Style.BRIGHT
-    r = Style.RESET_ALL
     x = Fore.RED
     o = Fore.BLUE
+    b = Style.BRIGHT
+    
+    r = Fore.RESET
+    rr = Style.RESET_ALL
+
+    def bc (inner_board_position):
+        """
+            returns the color of a board
+            x -> board won by Player 1
+            o -> board won by Player 2
+            y -> current board to play in
+            r -> board not being play, nor won by any player
+        """
+        if number_to_coordinates(inner_board_position) in list_of_players[0].current_won_boards:
+            return x
+        elif number_to_coordinates(inner_board_position) in list_of_players[1].current_won_boards:
+            return o
+        elif i_b == inner_board_position:
+            return y
+        return r
 
     s = current_outer_board.get_order_of_symbols()
 
     print(f"""{b}       ||       ||
- {s[0]}{y if i_b == 1 else r}|{r}{s[1]}{y if i_b == 1 else r}|{r}{s[2]} || {s[9]}{y if i_b == 2 else r}|{r}{s[10]}{y if i_b == 2 else r}|{r}{s[11]} || {s[18]}{y if i_b == 3 else r}|{r}{s[19]}{y if i_b == 3 else r}|{r}{s[20]}
- {s[3]}{y if i_b == 1 else r}|{r}{s[4]}{y if i_b == 1 else r}|{r}{s[5]} || {s[12]}{y if i_b == 2 else r}|{r}{s[13]}{y if i_b == 2 else r}|{r}{s[14]} || {s[21]}{y if i_b == 3 else r}|{r}{s[22]}{y if i_b == 3 else r}|{r}{s[23]}
- {s[6]}{y if i_b == 1 else r}|{r}{s[7]}{y if i_b == 1 else r}|{r}{s[8]} || {s[15]}{y if i_b == 2 else r}|{r}{s[16]}{y if i_b == 2 else r}|{r}{s[17]} || {s[24]}{y if i_b == 3 else r}|{r}{s[25]}{y if i_b == 3 else r}|{r}{s[26]}
-_______||_______||_______
-       ||       ||
- {s[27]}{y if i_b == 4 else r}|{r}{s[28]}{y if i_b == 4 else r}|{r}{s[29]} || {s[36]}{y if i_b == 5 else r}|{r}{s[37]}{y if i_b == 5 else r}|{r}{s[38]} || {s[45]}{y if i_b == 6 else r}|{r}{s[46]}{y if i_b == 6 else r}|{r}{s[47]}
- {s[30]}{y if i_b == 4 else r}|{r}{s[31]}{y if i_b == 4 else r}|{r}{s[32]} || {s[39]}{y if i_b == 5 else r}|{r}{s[40]}{y if i_b == 5 else r}|{r}{s[41]} || {s[48]}{y if i_b == 6 else r}|{r}{s[49]}{y if i_b == 6 else r}|{r}{s[50]}
- {s[33]}{y if i_b == 4 else r}|{r}{s[34]}{y if i_b == 4 else r}|{r}{s[35]} || {s[42]}{y if i_b == 5 else r}|{r}{s[43]}{y if i_b == 5 else r}|{r}{s[44]} || {s[51]}{y if i_b == 6 else r}|{r}{s[52]}{y if i_b == 6 else r}|{r}{s[53]}
-_______||_______||_______
-       ||       ||
- {s[54]}{y if i_b == 7 else r}|{r}{s[55]}{y if i_b == 7 else r}|{r}{s[56]} || {s[63]}{y if i_b == 8 else r}|{r}{s[64]}{y if i_b == 8 else r}|{r}{s[65]} || {s[72]}{y if i_b == 9 else r}|{r}{s[73]}{y if i_b == 9 else r}|{r}{s[74]}
- {s[57]}{y if i_b == 7 else r}|{r}{s[58]}{y if i_b == 7 else r}|{r}{s[59]} || {s[66]}{y if i_b == 8 else r}|{r}{s[67]}{y if i_b == 8 else r}|{r}{s[68]} || {s[75]}{y if i_b == 9 else r}|{r}{s[76]}{y if i_b == 9 else r}|{r}{s[77]}
- {s[60]}{y if i_b == 7 else r}|{r}{s[61]}{y if i_b == 7 else r}|{r}{s[62]} || {s[69]}{y if i_b == 8 else r}|{r}{s[70]}{y if i_b == 8 else r}|{r}{s[71]} || {s[78]}{y if i_b == 9 else r}|{r}{s[79]}{y if i_b == 9 else r}|{r}{s[80]}
-       ||       ||{r}""")
+ {x if s[0] == 'X' else o}{s[0]}{bc(1)}|{r}{x if s[1] == 'X' else o}{s[1]}{bc(1)}|{r}{x if s[2] == 'X' else o}{s[2]} {r}|| {x if s[9] == 'X' else o}{s[9]}{bc(2)}|{r}{x if s[10] == 'X' else o}{s[10]}{bc(2)}|{r}{x if s[11] == 'X' else o}{s[11]} {r}|| {x if s[18] == 'X' else o}{s[18]}{bc(3)}|{r}{x if s[19] == 'X' else o}{s[19]}{bc(3)}|{r}{x if s[20] == 'X' else o}{s[20]}
+ {x if s[3] == 'X' else o}{s[3]}{bc(1)}|{r}{x if s[4] == 'X' else o}{s[4]}{bc(1)}|{r}{x if s[5] == 'X' else o}{s[5]} {r}|| {x if s[12] == 'X' else o}{s[12]}{bc(2)}|{r}{x if s[13] == 'X' else o}{s[13]}{bc(2)}|{r}{x if s[14] == 'X' else o}{s[14]} {r}|| {x if s[21] == 'X' else o}{s[21]}{bc(3)}|{r}{x if s[22] == 'X' else o}{s[22]}{bc(3)}|{r}{x if s[23] == 'X' else o}{s[23]}
+ {x if s[6] == 'X' else o}{s[6]}{bc(1)}|{r}{x if s[7] == 'X' else o}{s[7]}{bc(1)}|{r}{x if s[8] == 'X' else o}{s[8]} {r}|| {x if s[15] == 'X' else o}{s[15]}{bc(2)}|{r}{x if s[16] == 'X' else o}{s[16]}{bc(2)}|{r}{x if s[17] == 'X' else o}{s[17]} {r}|| {x if s[24] == 'X' else o}{s[24]}{bc(3)}|{r}{x if s[25] == 'X' else o}{s[25]}{bc(3)}|{r}{x if s[26] == 'X' else o}{s[26]}
+{r}_______||_______||_______
+       {r}||       ||
+ {x if s[27] == 'X' else o}{s[27]}{bc(4)}|{r}{x if s[28] == 'X' else o}{s[28]}{bc(4)}|{r}{x if s[29] == 'X' else o}{s[29]} {r}|| {x if s[36] == 'X' else o}{s[36]}{bc(5)}|{r}{x if s[37] == 'X' else o}{s[37]}{bc(5)}|{r}{x if s[38] == 'X' else o}{s[38]} {r}|| {x if s[45] == 'X' else o}{s[45]}{bc(6)}|{r}{x if s[46] == 'X' else o}{s[46]}{bc(6)}|{r}{x if s[47] == 'X' else o}{s[47]}
+ {x if s[30] == 'X' else o}{s[30]}{bc(4)}|{r}{x if s[31] == 'X' else o}{s[31]}{bc(4)}|{r}{x if s[32] == 'X' else o}{s[32]} {r}|| {x if s[39] == 'X' else o}{s[39]}{bc(5)}|{r}{x if s[40] == 'X' else o}{s[40]}{bc(5)}|{r}{x if s[41] == 'X' else o}{s[41]} {r}|| {x if s[48] == 'X' else o}{s[48]}{bc(6)}|{r}{x if s[49] == 'X' else o}{s[49]}{bc(6)}|{r}{x if s[50] == 'X' else o}{s[50]}
+ {x if s[33] == 'X' else o}{s[33]}{bc(4)}|{r}{x if s[34] == 'X' else o}{s[34]}{bc(4)}|{r}{x if s[35] == 'X' else o}{s[35]} {r}|| {x if s[42] == 'X' else o}{s[42]}{bc(5)}|{r}{x if s[43] == 'X' else o}{s[43]}{bc(5)}|{r}{x if s[44] == 'X' else o}{s[44]} {r}|| {x if s[51] == 'X' else o}{s[51]}{bc(6)}|{r}{x if s[52] == 'X' else o}{s[52]}{bc(6)}|{r}{x if s[53] == 'X' else o}{s[53]}
+{r}_______||_______||_______
+       {r}||       ||
+ {x if s[54] == 'X' else o}{s[54]}{bc(7)}|{r}{x if s[55] == 'X' else o}{s[55]}{bc(7)}|{r}{x if s[56] == 'X' else o}{s[56]} {r}|| {x if s[63] == 'X' else o}{s[63]}{bc(8)}|{r}{x if s[64] == 'X' else o}{s[64]}{bc(8)}|{r}{x if s[65] == 'X' else o}{s[65]} {r}|| {x if s[72] == 'X' else o}{s[72]}{bc(9)}|{r}{x if s[73] == 'X' else o}{s[73]}{bc(9)}|{r}{x if s[74] == 'X' else o}{s[74]}
+ {x if s[57] == 'X' else o}{s[57]}{bc(7)}|{r}{x if s[58] == 'X' else o}{s[58]}{bc(7)}|{r}{x if s[59] == 'X' else o}{s[59]} {r}|| {x if s[66] == 'X' else o}{s[66]}{bc(8)}|{r}{x if s[67] == 'X' else o}{s[67]}{bc(8)}|{r}{x if s[68] == 'X' else o}{s[68]} {r}|| {x if s[75] == 'X' else o}{s[75]}{bc(9)}|{r}{x if s[76] == 'X' else o}{s[76]}{bc(9)}|{r}{x if s[77] == 'X' else o}{s[77]}
+ {x if s[60] == 'X' else o}{s[60]}{bc(7)}|{r}{x if s[61] == 'X' else o}{s[61]}{bc(7)}|{r}{x if s[62] == 'X' else o}{s[62]} {r}|| {x if s[69] == 'X' else o}{s[69]}{bc(8)}|{r}{x if s[70] == 'X' else o}{s[70]}{bc(8)}|{r}{x if s[71] == 'X' else o}{s[71]} {r}|| {x if s[78] == 'X' else o}{s[78]}{bc(9)}|{r}{x if s[79] == 'X' else o}{s[79]}{bc(9)}|{r}{x if s[80] == 'X' else o}{s[80]}
+       {r}||       ||{rr}""")
 
 
 def create_board(content):
@@ -178,7 +196,7 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
     l(1)
     display_guide_board()
     l(1)
-    display_current_board(outer_board, inner_board)
+    display_current_board(outer_board, list_of_players, inner_board)
     l(1)
 
     if inner_board is None:
@@ -218,7 +236,7 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
             l(1)
             print(f'Game won by {current_player.get_name()}')
             l(1)
-            display_current_board(outer_board)
+            display_current_board(outer_board, list_of_players, None)
             l(1)
             print('Thank you for playing')
             stand_by()
