@@ -108,9 +108,11 @@ def clear():
         os.system("clear")
 
 
-def display_current_board(current_outer_board):
+def stand_by():
+    _ = input()
 
-    clear()
+
+def display_current_board(current_outer_board):
 
     symbols = current_outer_board.get_order_of_symbols()
 
@@ -140,14 +142,69 @@ def create_board(content):
 # GAME METHODS
 
 
-def player_turn(list_of_players, current_player):
-    pass
+def player_turn(outer_board, list_of_players, player_index, inner_board):
+
+    clear()
+
+    if (
+        number_to_coordinates(inner_board) in list_of_players[0].current_won_boards or
+        number_to_coordinates(inner_board) in list_of_players[1].current_won_boards
+    ):
+        inner_board = None
+
+    current_player = list_of_players[player_index % 2]
+    print(f"It's {current_player.get_name()}'s turn ({current_player.get_symbol()})")
+    display_current_board(outer_board)
+    if inner_board is None:
+        inner_board = int(input('Select an inner board (1-9): '))
+        # TO_DO: Check that player cannot choose a board that has been won already
+    else:
+        print(f'You will play on board {inner_board}')
+    coordinate = input('Select a number for your play: ')
+    coordinate = number_to_coordinates(coordinate)
+    # TO_DO: Chack that player cannot overwrite another symbol
+
+    if current_player.get_symbol() == 'X':
+        outer_board.get_inner_board(inner_board-1).add_x_coordinate(coordinate)
+    if current_player.get_symbol() == 'O':
+        outer_board.get_inner_board(inner_board-1).add_o_coordinate(coordinate)
+    current_player.assing_play_to_board(inner_board, coordinate)
+
+    if look_for_possible_victory(current_player.plays_description[f'board_{inner_board}']) is not None:
+        print(f'Inner board {inner_board} won by {current_player.get_name()}')
+        current_player.assing_won_board(number_to_coordinates(inner_board))
+        print(current_player.current_won_boards)
+        stand_by()
+        if look_for_possible_victory(current_player.current_won_boards) is not None:
+            print(f'Game won by {current_player.get_name()}')
+            display_current_board(outer_board)
+            stand_by()
+        else:
+            player_turn(
+                outer_board,
+                list_of_players,
+                player_index+1,
+                coordinate_to_number(coordinate)
+            )
+    else:
+        player_turn(
+            outer_board,
+            list_of_players,
+            player_index+1,
+            coordinate_to_number(coordinate)
+        )
 
 
 def coordinate_to_number(coordinate):
     for i in VALID_COORDINATES:
         if i == coordinate:
             return VALID_COORDINATES.index(i) + 1
+
+
+def number_to_coordinates(number):
+    if number is None:
+        return None
+    return VALID_COORDINATES[number-1]
 
 
 def look_for_possible_victory(list_of_plays):
