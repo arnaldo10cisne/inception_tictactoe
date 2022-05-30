@@ -112,6 +112,19 @@ def stand_by():
     _ = input()
 
 
+def l(n):
+    for _ in range(n):
+        print('')
+
+
+def display_guide_board():
+    print("""Follow this guide:
+
+1||2||3
+4||5||6
+7||8||9""")
+
+
 def display_current_board(current_outer_board):
 
     symbols = current_outer_board.get_order_of_symbols()
@@ -154,13 +167,17 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
 
     current_player = list_of_players[player_index % 2]
     print(f"It's {current_player.get_name()}'s turn ({current_player.get_symbol()})")
+    l(1)
+    display_guide_board()
+    l(1)
     display_current_board(outer_board)
+    l(1)
     if inner_board is None:
         inner_board = int(input('Select an inner board (1-9): '))
         # TO_DO: Check that player cannot choose a board that has been won already
     else:
         print(f'You will play on board {inner_board}')
-    coordinate = input('Select a number for your play: ')
+    coordinate = int(input('Select a number for your play: '))
     coordinate = number_to_coordinates(coordinate)
     # TO_DO: Chack that player cannot overwrite another symbol
 
@@ -171,13 +188,18 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
     current_player.assing_play_to_board(inner_board, coordinate)
 
     if look_for_possible_victory(current_player.plays_description[f'board_{inner_board}']) is not None:
+        l(1)
         print(f'Inner board {inner_board} won by {current_player.get_name()}')
         current_player.assing_won_board(number_to_coordinates(inner_board))
-        print(current_player.current_won_boards)
         stand_by()
         if look_for_possible_victory(current_player.current_won_boards) is not None:
+            clear()
+            l(1)
             print(f'Game won by {current_player.get_name()}')
+            l(1)
             display_current_board(outer_board)
+            l(1)
+            print('Thank you for playing')
             stand_by()
         else:
             player_turn(
