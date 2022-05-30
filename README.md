@@ -14,10 +14,11 @@ Application that simulates a different version of the game TicTacToe. It is a gi
 
 ## Captures
 
-![Capture 1]()
-![Capture 2]()
-![Capture 3]()
-![Capture 4]()
+![Capture 1](https://res.cloudinary.com/arnaldo10cisne/image/upload/v1653928544/ultimate_tictactoe/Captura1_irdl8u.jpg)
+![Capture 2](https://res.cloudinary.com/arnaldo10cisne/image/upload/v1653928544/ultimate_tictactoe/Captura2_ewcvv0.jpg)
+![Capture 3](https://res.cloudinary.com/arnaldo10cisne/image/upload/v1653928544/ultimate_tictactoe/Captura3_bbhi5d.jpg)
+![Capture 4](https://res.cloudinary.com/arnaldo10cisne/image/upload/v1653928544/ultimate_tictactoe/Captura4_smesap.jpg)
+![Capture 5](https://res.cloudinary.com/arnaldo10cisne/image/upload/v1653928545/ultimate_tictactoe/Captura5_plzf81.jpg)
 
 ## Finally
 
