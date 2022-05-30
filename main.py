@@ -5,7 +5,7 @@ from utils import player_turn, clear, l
 def run():
     clear()
     l(1)
-    print('Welcome to INCEPTION TIC TAC TOE')
+    print('Welcome to ULTIMATE TIC TAC TOE')
     l(1)
     outer_board = OuterBoard()
     p1_name = input('Name for player 1 (X): ')
