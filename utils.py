@@ -202,7 +202,7 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
             else:
                 break
     else:
-        print(f'You will play on {Fore.YELLOW}board {inner_board}{Fore.RESET}')
+        print(f'You will play on {Fore.YELLOW}board {refactor_number(inner_board)}{Fore.RESET}')
 
     while True:
         l(1)
@@ -229,7 +229,7 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
 
     if look_for_possible_victory(current_player.plays_description[f'board_{inner_board}']) is not None:
         l(1)
-        print(f'Inner board {inner_board} won by {current_player.get_name()}')
+        print(f'Inner board {refactor_number(inner_board)} won by {current_player.get_name()}')
         current_player.assing_won_board(number_to_coordinates(inner_board))
         stand_by()
         if look_for_possible_victory(current_player.current_won_boards) is not None:
