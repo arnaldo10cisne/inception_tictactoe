@@ -103,10 +103,7 @@ class InnerBoard:
 
 
 def clear():
-    if os.name == "nt":
-        os.system("cls")
-    else:
-        os.system("clear")
+    os.system("cls" if os.name == "nt" else "clear")
 
 
 def stand_by():
@@ -132,11 +129,11 @@ def display_current_board(current_outer_board, list_of_players, i_b=None):
     x = Fore.RED
     o = Fore.BLUE
     b = Style.BRIGHT
-    
+
     r = Fore.RESET
     rr = Style.RESET_ALL
 
-    def bc (inner_board_position):
+    def bc(inner_board_position):
         """
             returns the color of a board
             x -> board won by Player 1
@@ -192,7 +189,7 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
 
     current_player = list_of_players[player_index % 2]
 
-    print(f"It's {current_player.get_name()}'s turn ({current_player.get_symbol()})")
+    print(f"{Fore.RED if player_index % 2 == 0 else Fore.BLUE}It's {current_player.get_name()}'s turn ({current_player.get_symbol()}){Fore.RESET}")
     l(1)
     display_guide_board()
     l(1)
@@ -208,7 +205,7 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
             else:
                 break
     else:
-        print(f'You will play on board {inner_board}')
+        print(f'You will play on {Fore.YELLOW}board {inner_board}{Fore.RESET}')
 
     while True:
         l(1)
