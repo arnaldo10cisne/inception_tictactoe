@@ -189,7 +189,14 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
     if inner_board is None:
         while True:
             l(1)
-            inner_board = refactor_number(int(input('Select an inner board (1-9): ')))
+            try:
+                inner_board = refactor_number(int(input('Select an inner board (1-9): ')))
+            except ValueError:
+                print('WARNING: Invalid entry, please enter a valid number')
+                continue
+            if inner_board < 1 or inner_board > 9:
+                print('WARNING: Please enter a valid number')
+                continue
             if board_is_won(inner_board, list_of_players):
                 print('WARNING: This board is not available, please choose another')
             else:
@@ -199,7 +206,14 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
 
     while True:
         l(1)
-        coordinate = refactor_number(int(input('Select a tile number for your play (1-9): ')))
+        try:
+            coordinate = refactor_number(int(input('Select a tile number for your play (1-9): ')))
+        except ValueError:
+            print('WARNING: Invalid entry, please enter a valid number')
+            continue
+        if coordinate < 1 or coordinate > 9:
+            print('WARNING: Please enter a valid number')
+            continue
         if coordinate_is_free(coordinate, outer_board.get_inner_board(inner_board-1)):
             break
         else:
