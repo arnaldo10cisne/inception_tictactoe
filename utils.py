@@ -1,4 +1,5 @@
 import os
+from colorama import Style, Fore
 
 
 # CONSTANTS
@@ -125,25 +126,31 @@ def display_guide_board():
          1||2||3""")
 
 
-def display_current_board(current_outer_board):
+def display_current_board(current_outer_board, i_b = None):
 
-    symbols = current_outer_board.get_order_of_symbols()
+    y = Fore.YELLOW
+    b = Style.BRIGHT
+    r = Style.RESET_ALL
+    x = Fore.RED
+    o = Fore.BLUE
 
-    print(f"""       ||       ||
- {symbols[0]}|{symbols[1]}|{symbols[2]} || {symbols[9]}|{symbols[10]}|{symbols[11]} || {symbols[18]}|{symbols[19]}|{symbols[20]}
- {symbols[3]}|{symbols[4]}|{symbols[5]} || {symbols[12]}|{symbols[13]}|{symbols[14]} || {symbols[21]}|{symbols[22]}|{symbols[23]}
- {symbols[6]}|{symbols[7]}|{symbols[8]} || {symbols[15]}|{symbols[16]}|{symbols[17]} || {symbols[24]}|{symbols[25]}|{symbols[26]}
+    s = current_outer_board.get_order_of_symbols()
+
+    print(f"""{b}       ||       ||
+ {s[0]}{y if i_b == 1 else r}|{r}{s[1]}{y if i_b == 1 else r}|{r}{s[2]} || {s[9]}{y if i_b == 2 else r}|{r}{s[10]}{y if i_b == 2 else r}|{r}{s[11]} || {s[18]}{y if i_b == 3 else r}|{r}{s[19]}{y if i_b == 3 else r}|{r}{s[20]}
+ {s[3]}{y if i_b == 1 else r}|{r}{s[4]}{y if i_b == 1 else r}|{r}{s[5]} || {s[12]}{y if i_b == 2 else r}|{r}{s[13]}{y if i_b == 2 else r}|{r}{s[14]} || {s[21]}{y if i_b == 3 else r}|{r}{s[22]}{y if i_b == 3 else r}|{r}{s[23]}
+ {s[6]}{y if i_b == 1 else r}|{r}{s[7]}{y if i_b == 1 else r}|{r}{s[8]} || {s[15]}{y if i_b == 2 else r}|{r}{s[16]}{y if i_b == 2 else r}|{r}{s[17]} || {s[24]}{y if i_b == 3 else r}|{r}{s[25]}{y if i_b == 3 else r}|{r}{s[26]}
 _______||_______||_______
        ||       ||
- {symbols[27]}|{symbols[28]}|{symbols[29]} || {symbols[36]}|{symbols[37]}|{symbols[38]} || {symbols[45]}|{symbols[46]}|{symbols[47]}
- {symbols[30]}|{symbols[31]}|{symbols[32]} || {symbols[39]}|{symbols[40]}|{symbols[41]} || {symbols[48]}|{symbols[49]}|{symbols[50]}
- {symbols[33]}|{symbols[34]}|{symbols[35]} || {symbols[42]}|{symbols[43]}|{symbols[44]} || {symbols[51]}|{symbols[52]}|{symbols[53]}
+ {s[27]}{y if i_b == 4 else r}|{r}{s[28]}{y if i_b == 4 else r}|{r}{s[29]} || {s[36]}{y if i_b == 5 else r}|{r}{s[37]}{y if i_b == 5 else r}|{r}{s[38]} || {s[45]}{y if i_b == 6 else r}|{r}{s[46]}{y if i_b == 6 else r}|{r}{s[47]}
+ {s[30]}{y if i_b == 4 else r}|{r}{s[31]}{y if i_b == 4 else r}|{r}{s[32]} || {s[39]}{y if i_b == 5 else r}|{r}{s[40]}{y if i_b == 5 else r}|{r}{s[41]} || {s[48]}{y if i_b == 6 else r}|{r}{s[49]}{y if i_b == 6 else r}|{r}{s[50]}
+ {s[33]}{y if i_b == 4 else r}|{r}{s[34]}{y if i_b == 4 else r}|{r}{s[35]} || {s[42]}{y if i_b == 5 else r}|{r}{s[43]}{y if i_b == 5 else r}|{r}{s[44]} || {s[51]}{y if i_b == 6 else r}|{r}{s[52]}{y if i_b == 6 else r}|{r}{s[53]}
 _______||_______||_______
        ||       ||
- {symbols[54]}|{symbols[55]}|{symbols[56]} || {symbols[63]}|{symbols[64]}|{symbols[65]} || {symbols[72]}|{symbols[73]}|{symbols[74]}
- {symbols[57]}|{symbols[58]}|{symbols[59]} || {symbols[66]}|{symbols[67]}|{symbols[68]} || {symbols[75]}|{symbols[76]}|{symbols[77]}
- {symbols[60]}|{symbols[61]}|{symbols[62]} || {symbols[69]}|{symbols[70]}|{symbols[71]} || {symbols[78]}|{symbols[79]}|{symbols[80]}
-       ||       ||""")
+ {s[54]}{y if i_b == 7 else r}|{r}{s[55]}{y if i_b == 7 else r}|{r}{s[56]} || {s[63]}{y if i_b == 8 else r}|{r}{s[64]}{y if i_b == 8 else r}|{r}{s[65]} || {s[72]}{y if i_b == 9 else r}|{r}{s[73]}{y if i_b == 9 else r}|{r}{s[74]}
+ {s[57]}{y if i_b == 7 else r}|{r}{s[58]}{y if i_b == 7 else r}|{r}{s[59]} || {s[66]}{y if i_b == 8 else r}|{r}{s[67]}{y if i_b == 8 else r}|{r}{s[68]} || {s[75]}{y if i_b == 9 else r}|{r}{s[76]}{y if i_b == 9 else r}|{r}{s[77]}
+ {s[60]}{y if i_b == 7 else r}|{r}{s[61]}{y if i_b == 7 else r}|{r}{s[62]} || {s[69]}{y if i_b == 8 else r}|{r}{s[70]}{y if i_b == 8 else r}|{r}{s[71]} || {s[78]}{y if i_b == 9 else r}|{r}{s[79]}{y if i_b == 9 else r}|{r}{s[80]}
+       ||       ||{r}""")
 
 
 def create_board(content):
@@ -171,7 +178,7 @@ def player_turn(outer_board, list_of_players, player_index, inner_board):
     l(1)
     display_guide_board()
     l(1)
-    display_current_board(outer_board)
+    display_current_board(outer_board, inner_board)
     l(1)
 
     if inner_board is None:
